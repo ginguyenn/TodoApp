@@ -1,24 +1,22 @@
-import React, { useState } from "react";
+import React, {useState} from 'react'
 
 export const TodoForm = ({addTodo}) => {
+    const [value, setValue] = useState('');
 
-    const [value, setValue] = useState("")
-    const handleSubmit = e => {
-        e.preventDefaul();
-
-        addTodo(value)
-
-        //clear result after inserting
-        setValue("")
-    }
-
-    return(
-        <form className="TodoForm" onSubmit={handleSubmit}>
-            <input className="todo-input" type="text" 
-            placeholder="What is the task today?" 
-            onChange={(e) => setValue(e.target.value)}
-            value = {value} /> 
-            <button className="todo-btn" type="submit">Add</button>
-        </form>
-    )
+    const handleSubmit = (e) => {
+      // prevent default action
+        e.preventDefault();
+        if (value) {
+          // add new todo
+          addTodo(value);
+          // clear sau khi submit xong
+          setValue('');
+        }
+      };
+  return (
+    <form onSubmit={handleSubmit} className="TodoForm">
+    <input type="text" value={value} onChange={(e) => setValue(e.target.value)} className="todo-input" placeholder='What is the task today?' />
+    <button type="submit" className='todo-btn'>Add</button>
+  </form>
+  )
 }
